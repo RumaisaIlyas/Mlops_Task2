@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/RumaisaIlyas/Mlops_Task2.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'pytest test.py'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                def branchName = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                    if (branchName == 'main') {
+                        echo 'Deploying to production'
+               
+                    } else {
+                        echo 'Deploying to UAT'
+                        // Add your UAT deployment steps here
+                    }
+            }
+        }
+    }
+}
