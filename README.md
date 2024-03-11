@@ -12,3 +12,9 @@
    Installing dependencies
    Executing test cases.
 
+#Mlops Task 4
+1. Go to your desired directory
+2. clone the github repository
+3. make jenkins file
+
+
