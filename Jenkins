@@ -1,15 +1,18 @@
 pipeline {
     agent any
 
-tools {
-        // Define the Python installation to use
-        python 'Python 3.10'
-    }
-    
+
     stages {
          stage('Checkout') {
                     steps {
                             bat 'git clone https://github.com/RumaisaIlyas/Mlops_Task2.git'
+                        }
+        
+                }
+
+        stage('Version') {
+                    steps {
+                            bat 'python --version'
                         }
         
                 }
