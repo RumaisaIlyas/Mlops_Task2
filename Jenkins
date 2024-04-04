@@ -4,7 +4,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                bat 'git clone https://github.com/RumaisaIlyas/Mlops_Task2.git'
+                script {
+                    // Check if the repository directory exists
+                    if (!fileExists('Mlops_Task2')) {
+                        bat 'git clone https://github.com/RumaisaIlyas/Mlops_Task2.git'
+                    } else {
+                        echo 'Repository already cloned. Skipping checkout stage.'
+                    }
+                }
             }
         }
         stage('Install Dependencies') {
@@ -38,4 +45,9 @@ pipeline {
             }
         }
     }
+}
+
+
+def fileExists(filePath) {
+    return file(filePath).exists()
 }
