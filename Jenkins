@@ -4,34 +4,37 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/RumaisaIlyas/Mlops_Task2.git'
+                bat 'git clone https://github.com/RumaisaIlyas/Mlops_Task2.git'
             }
         }
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                bat 'pip install -r requirements.txt'
             }
         }
         stage('Run Tests') {
             steps {
-                sh 'pytest test.py'
+                bat 'pytest test.py'
             }
         }
         stage('Build') {
             steps {
                 echo 'Building...'
+                // Add your build commands here, adjusted for Windows
             }
         }
         stage('Deploy') {
             steps {
-                def branchName = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                script {
+                    def branchName = bat(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     if (branchName == 'main') {
                         echo 'Deploying to production'
-               
+                        // Add your production deployment steps here, adjusted for Windows
                     } else {
                         echo 'Deploying to UAT'
-                        // Add your UAT deployment steps here
+                        // Add your UAT deployment steps here, adjusted for Windows
                     }
+                }
             }
         }
     }
