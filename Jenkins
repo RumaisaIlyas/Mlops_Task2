@@ -2,6 +2,12 @@ pipeline {
     agent any
     
     stages {
+         stage('Checkout') {
+                    steps {
+                            bat 'git clone https://github.com/RumaisaIlyas/Mlops_Task2.git'
+                        }
+                    }
+                }
         
         stage('Install Dependencies') {
             steps {
@@ -34,9 +40,4 @@ pipeline {
             }
         }
     }
-}
-
-
-def fileExists(filePath) {
-    return file(filePath).exists()
 }
